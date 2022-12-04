@@ -56,6 +56,10 @@
             argument = "-i &quot;$(SRCROOT)/$(TARGETNAME)/Inputs&quot;"
             isEnabled = "YES">
          </CommandLineArgument>
+         <CommandLineArgument
+            argument = "-d 4"
+            isEnabled = "YES">
+         </CommandLineArgument>
       </CommandLineArguments>
       <EnvironmentVariables>
          <EnvironmentVariable

@@ -41,6 +41,8 @@ CommandLine.arguments.adjacentPairs().forEach { arg1, arg2 in
     switch arg1 {
     case "-i":
         inputPath = arg2
+    case "-d":
+        dayNumber = Int(arg2)
     default:
         break
     }
@@ -50,29 +52,28 @@ guard let inputPath = inputPath else {
     fatalError("Please provide the path to the inputs using the -i command line argument")
 }
 
-while(true) {
+if dayNumber == nil {
     print("Please enter dayNumber\n")
 
     if let readNumber = Int(readLine()?.lines.first ?? "") {
         dayNumber = readNumber
     } else {
-       print("please input dayNumber")
+        print("please input dayNumber")
     }
-    
-    if let dayNumber = dayNumber {
-        // If a day is specified, just run that single day
-        run(dayNumber: dayNumber, inputPath: inputPath)
-    } else {
-        // Otherwise, run all the days
-        for i in 1 ... 25 {
-            run(dayNumber: i, inputPath: inputPath)
-        }
+}
+
+if let dayNumber = dayNumber {
+    // If a day is specified, just run that single day
+    run(dayNumber: dayNumber, inputPath: inputPath)
+} else {
+    // Otherwise, run all the days
+    for i in 1 ... 25 {
+        run(dayNumber: i, inputPath: inputPath)
     }
-    print("""
+}
+
+print("""
 
 ========= End =======
 
 """)
-    sleep(1)
-}
-
