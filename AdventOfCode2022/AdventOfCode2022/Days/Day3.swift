@@ -24,7 +24,7 @@ final class Day3: Day {
             .reduce(0, +)
     }
 
-    func priority(for rucksack: Substring) -> Int {
+    func priority(for rucksack: String) -> Int {
         let mid = rucksack.count / 2
         let compOne = rucksack.prefix(mid)
         let compTwo = rucksack.suffix(mid)
@@ -34,7 +34,7 @@ final class Day3: Day {
             .reduce(0, +)
     }
 
-    func badge(for group: some Collection<Substring>) -> Int {
+    func badge(for group: some Collection<String>) -> Int {
         group
             .dropFirst()
             .reduce(into: Set(group.first!)) { characters, groupMember in

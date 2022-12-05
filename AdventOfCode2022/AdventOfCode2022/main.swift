@@ -34,7 +34,7 @@ func run(dayNumber: Int, inputPath: String) {
     print("")
 }
 
-var dayNumber: Int?
+var dayNumber: String?
 var inputPath: String?
 
 CommandLine.arguments.adjacentPairs().forEach { arg1, arg2 in
@@ -42,7 +42,7 @@ CommandLine.arguments.adjacentPairs().forEach { arg1, arg2 in
     case "-i":
         inputPath = arg2
     case "-d":
-        dayNumber = Int(arg2)
+        dayNumber = arg2
     default:
         break
     }
@@ -55,7 +55,7 @@ guard let inputPath = inputPath else {
 if dayNumber == nil {
     print("Please enter dayNumber\n")
 
-    if let readNumber = Int(readLine()?.lines.first ?? "") {
+    if let readNumber = readLine()?.lines.first {
         dayNumber = readNumber
     } else {
         print("please input dayNumber")
@@ -64,10 +64,17 @@ if dayNumber == nil {
 
 if let dayNumber = dayNumber {
     // If a day is specified, just run that single day
-    run(dayNumber: dayNumber, inputPath: inputPath)
+    if let num = Int(dayNumber) {
+        run(dayNumber: num, inputPath: inputPath)
+    } else if dayNumber.contains("-") {
+        let numbers = dayNumber.split(separator: "-").compactMap({ Int($0) })
+        for i in numbers {
+            run(dayNumber: i, inputPath: inputPath)
+        }
+    }
 } else {
     // Otherwise, run all the days
-    for i in 1 ... 25 {
+    for i in 4 ... 5 {
         run(dayNumber: i, inputPath: inputPath)
     }
 }
