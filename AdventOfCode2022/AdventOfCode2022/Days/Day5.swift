@@ -8,7 +8,7 @@
 import Foundation
 import RegexBuilder
 
- final class Day5: Day {
+final class Day5: Day {
     func part1(_ input: String) -> CustomStringConvertible {
         var model = parseInput(input: input.lines)
         return moveCrates(crates: &model.0, moves: model.1, oneByOne: true)
@@ -28,27 +28,12 @@ import RegexBuilder
 
     func parseCrates(_ input: some Collection<String>) -> Crates {
         var crates = Crates()
-        input.forEach { line in
-            line.enumerated().forEach { index, ch in
-                if ch.isNumber || ch == " " {
-                    return
-                }
-                if (index - 1).isMultiple(of: 4) {
-                    let crate = 1 + (index - 1) / 4
-                    crates.items[crate, default: []].insert(ch, at: 0)
-                }
+        crates.items = input.reduce(into: Crates.ItemType()) { stacks, line in
+            for (i, char) in line.enumerated() {
+                guard char.isLetter else { continue }
+                stacks[(i / 4) + 1, default: []].insert(char, at: 0)
             }
         }
-
-//        // better way:
-//        var crates = Crates()
-//        crates.items = input.reduce(into: Crates.ItemType()) { stacks, line in
-//            for (i, char) in line.enumerated() {
-//                guard char.isLetter else { continue }
-//                stacks[(i / 4) + 1, default: []].insert(char, at: 0)
-//            }
-//        }
-//
         return crates
     }
 
@@ -62,40 +47,30 @@ import RegexBuilder
             .map { String($0) }
             .joined()
     }
- }
+}
 
- extension Day5 {
+extension Day5 {
     struct Move {
         let amount: Int
         let from: Int
         let to: Int
 
         init(_ str: String) {
-            let search = /move (\d+) from (\d+) to (\d+)/
-            let result = try! search.wholeMatch(in: str)!
-            amount = Int(result.1)!
-            from = Int(result.2)!
-            to = Int(result.3)!
+            let numbers = Capture { OneOrMore(.digit) } transform: { Int($0)! }
 
-//            // better way:
-//            /// /move (\d+) from (\d+) to (\d+)/
-//            /// Spaces are easily erased after formatting. 😊
-//            ///
-//            let numbers = Capture { OneOrMore(.digit) } transform: { Int($0)! }
-//
-//            let lineParser = Regex {
-//                "move "
-//                numbers
-//                " from "
-//                numbers
-//                " to "
-//                numbers
-//            }
-//
-//            let match = try! lineParser.wholeMatch(in: str)!.output
-//            amount = match.1
-//            from = match.2
-//            to = match.3
+            let lineParser = Regex {
+                "move "
+                numbers
+                " from "
+                numbers
+                " to "
+                numbers
+            }
+
+            let match = try! lineParser.wholeMatch(in: str)!.output
+            amount = match.1
+            from = match.2
+            to = match.3
         }
     }
 
@@ -120,80 +95,4 @@ import RegexBuilder
                 .compactMap { $0.value.last }
         }
     }
- }
-
-
-final class Day6: Day {
-  func part1(_ input: String) -> CustomStringConvertible {
-    let parts = input.components(separatedBy: "\n\n")
-    var stacks = parseStacks(from: parts[0])
-    let instructions = parseInstructions(from: parts[1])
-    
-    for (stackNumber, from, to) in instructions {
-      for _ in 1...stackNumber {
-        let val = stacks[from]!.popLast()!
-        stacks[to]?.append(val)
-      }
-    }
-    
-    return stacks
-      .keys
-      .sorted()
-      .map { String(stacks[$0]!.last!) }
-      .joined()
-  }
-  
-  func part2(_ input: String) -> CustomStringConvertible {
-    let parts = input.components(separatedBy: "\n\n")
-    var stacks = parseStacks(from: parts[0])
-    let instructions = parseInstructions(from: parts[1])
-    
-    for (stackNumber, from, to) in instructions {
-      var values = Array<Character>()
-      for _ in 1...stackNumber {
-        values.append(stacks[from]!.popLast()!)
-      }
-      
-      for value in values.reversed() {
-        stacks[to]?.append(value)
-      }
-    }
-    
-    return stacks
-      .keys
-      .sorted()
-      .map { String(stacks[$0]!.last!) }
-      .joined()
-  }
-  
-  func parseStacks(from input: String) -> Dictionary<Int, Array<Character>> {
-    input
-      .lines
-      .reduce(into: Dictionary<Int, Array<Character>>()) { stacks, line in
-        for (i, char) in line.enumerated() {
-          guard char.isLetter else { continue }
-          stacks[(i / 4) + 1, default: []].insert(char, at: 0)
-        }
-      }
-  }
-  
-  func parseInstructions(from input: String) -> [(stackNumber: Int, from: Int, to: Int)] {
-    input
-      .lines
-      .map { line in
-        let numbers = Capture { OneOrMore(.digit) } transform: { Int($0)! }
-        
-        let lineParser = Regex {
-          "move "
-          numbers
-          " from "
-          numbers
-          " to "
-          numbers
-        }
-        
-        let match = try! lineParser.wholeMatch(in: line)!.output
-        return (match.1, match.2, match.3)
-      }
-  }
 }
