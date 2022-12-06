@@ -9,46 +9,24 @@ import Algorithms
 import Foundation
 
 final class Day4: Day {
-    struct Range {
-        let from: Int
-        let to: Int
-    }
-
     func part1(_ input: String) -> CustomStringConvertible {
-        countDuplicateRanges(input: input, rangeCheck: contains)
-    }
-
-    func part2(_ input: String) -> CustomStringConvertible {
-        countDuplicateRanges(input: input, rangeCheck: overlaps)
-    }
-
-    private func countDuplicateRanges(input: String, rangeCheck: (Range, Range) -> Bool) -> Int {
         input
             .lines
-            .map { $0.split(separator: ",") }
-            .map(parseRanges)
-            .filter { $0.crossCompareRangeCheck(with: rangeCheck) }
+            .map(parse)
+            .filter { $0.0.contains($0.1) || $0.1.contains($0.0) }
             .count
     }
 
-    func parseRanges(line: [Substring]) -> [Range] {
-        line.map {
-            let fromTo = $0.split(separator: "-").map { Int($0)! }
-            return Range(from: fromTo[0], to: fromTo[1])
-        }
+    func parse(_ line: String) -> (ClosedRange<Int>, ClosedRange<Int>) {
+        let numbers = line.split(whereSeparator: { $0.isNumber == false }).map { Int($0)! }
+        return (numbers[0] ... numbers[1], numbers[2] ... numbers[3])
     }
 
-    func contains(_ r1: Range, _ r2: Range) -> Bool {
-        return r1.from <= r2.from && r2.to <= r1.to
-    }
-
-    func overlaps(_ r1: Range, _ r2: Range) -> Bool {
-        return r1.to >= r2.from && r1.from <= r2.to
-    }
-}
-
-extension Array where Element == Day4.Range {
-    func crossCompareRangeCheck(with rangeCheck: (Day4.Range, Day4.Range) -> Bool) -> Bool {
-        rangeCheck(self.first!, self.last!) || rangeCheck(self.last!, self.first!)
+    func part2(_ input: String) -> CustomStringConvertible {
+        input
+            .lines
+            .map(parse)
+            .filter { $0.0.overlaps($0.1) || $0.1.overlaps($0.0) }
+            .count
     }
 }

@@ -66,9 +66,14 @@ if let dayNumber = dayNumber {
     // If a day is specified, just run that single day
     if let num = Int(dayNumber) {
         run(dayNumber: num, inputPath: inputPath)
+    } else if dayNumber.contains(",") {
+        let numbers = dayNumber.split(separator: ",").compactMap({ Int($0) })
+        for i in numbers {
+            run(dayNumber: i, inputPath: inputPath)
+        }
     } else if dayNumber.contains("-") {
         let numbers = dayNumber.split(separator: "-").compactMap({ Int($0) })
-        for i in numbers {
+        for i in numbers.first! ... numbers.last! {
             run(dayNumber: i, inputPath: inputPath)
         }
     }
