@@ -5,19 +5,19 @@
 //  Created by bm on 2022/12/6.
 //
 
-import Dispatch
+import Algorithms
 import Foundation
 
 final class Day6: Day {
     func part1(_ input: String) -> CustomStringConvertible {
-        findLongestSubstring(from: input, distinct: 4)
+        findMarker(with: 4, input: input)
     }
 
     func part2(_ input: String) -> CustomStringConvertible {
-        findLongestSubstring(from: input, distinct: 14)
+        findMarker(with: 14, input: input)
     }
 
-    func findLongestSubstring(from input: String, distinct: Int) -> Int {
+    func findMarker(from input: String, distinct: Int) -> Int {
         let inputArray = Array(input)
         var start = 0
         var end = distinct - 1
@@ -31,5 +31,16 @@ final class Day6: Day {
             end += 1
         }
         return -1
+    }
+
+    func findMarker(with range: Int, input: String) -> Int {
+        Array(input)
+            .indexed()
+            .windows(ofCount: range)
+            .first { windowSlice in
+                Set(windowSlice.map(\.element)).count == range
+            }!
+            .last!
+            .index + 1
     }
 }
