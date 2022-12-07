@@ -18,6 +18,10 @@
 		805469FB293D09E300430243 /* Day4.swift in Sources */ = {isa = PBXBuildFile; fileRef = 805469FA293D09E300430243 /* Day4.swift */; };
 		805469FF293E14F900430243 /* Day5.swift in Sources */ = {isa = PBXBuildFile; fileRef = 805469FE293E14F900430243 /* Day5.swift */; };
 		80546A01293F7A2000430243 /* Day6.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80546A00293F7A2000430243 /* Day6.swift */; };
+		80546A062940BF8700430243 /* Day7.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80546A052940BF8700430243 /* Day7.swift */; };
+		80546A092940CC1800430243 /* TreeRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80546A082940CC1800430243 /* TreeRepresentable.swift */; };
+		80546A0B2940CC3000430243 /* TreePrinter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80546A0A2940CC3000430243 /* TreePrinter.swift */; };
+		80546A3929412F2900430243 /* Sequence+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80546A3829412F2900430243 /* Sequence+Helpers.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -41,7 +45,10 @@
 		805469FA293D09E300430243 /* Day4.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Day4.swift; sourceTree = "<group>"; };
 		805469FE293E14F900430243 /* Day5.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Day5.swift; sourceTree = "<group>"; };
 		80546A00293F7A2000430243 /* Day6.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Day6.swift; sourceTree = "<group>"; };
-		80546A02293F842800430243 /* Inputs */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Inputs; sourceTree = "<group>"; };
+		80546A052940BF8700430243 /* Day7.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Day7.swift; sourceTree = "<group>"; };
+		80546A082940CC1800430243 /* TreeRepresentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TreeRepresentable.swift; sourceTree = "<group>"; };
+		80546A0A2940CC3000430243 /* TreePrinter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TreePrinter.swift; sourceTree = "<group>"; };
+		80546A3829412F2900430243 /* Sequence+Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Sequence+Helpers.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -79,7 +86,7 @@
 		805468A5293C1AB200430243 /* AdventOfCode2022 */ = {
 			isa = PBXGroup;
 			children = (
-				80546A02293F842800430243 /* Inputs */,
+				80546A072940CB9D00430243 /* Helper */,
 				805468BE293C1C3000430243 /* Extensions */,
 				805468B6293C1B4100430243 /* Days */,
 				805468A6293C1AB200430243 /* main.swift */,
@@ -95,6 +102,7 @@
 				805469FA293D09E300430243 /* Day4.swift */,
 				805469FE293E14F900430243 /* Day5.swift */,
 				80546A00293F7A2000430243 /* Day6.swift */,
+				80546A052940BF8700430243 /* Day7.swift */,
 			);
 			path = Days;
 			sourceTree = "<group>";
@@ -110,8 +118,18 @@
 			isa = PBXGroup;
 			children = (
 				805468BF293C1C4300430243 /* String+Extension.swift */,
+				80546A3829412F2900430243 /* Sequence+Helpers.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		80546A072940CB9D00430243 /* Helper */ = {
+			isa = PBXGroup;
+			children = (
+				80546A082940CC1800430243 /* TreeRepresentable.swift */,
+				80546A0A2940CC3000430243 /* TreePrinter.swift */,
+			);
+			path = Helper;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -185,10 +203,14 @@
 			files = (
 				805468C0293C1C4300430243 /* String+Extension.swift in Sources */,
 				805469FB293D09E300430243 /* Day4.swift in Sources */,
+				80546A062940BF8700430243 /* Day7.swift in Sources */,
 				805468B8293C1B5900430243 /* Day.swift in Sources */,
 				805468BD293C1C2300430243 /* Day3.swift in Sources */,
 				805469FF293E14F900430243 /* Day5.swift in Sources */,
+				80546A092940CC1800430243 /* TreeRepresentable.swift in Sources */,
 				80546A01293F7A2000430243 /* Day6.swift in Sources */,
+				80546A3929412F2900430243 /* Sequence+Helpers.swift in Sources */,
+				80546A0B2940CC3000430243 /* TreePrinter.swift in Sources */,
 				805468A7293C1AB200430243 /* main.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
